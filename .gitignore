@@ -1,0 +1,18 @@
+# : comments
+
+# no .a files
+
+
+# but do track lib.a, even though you're ignoring .a files above
+
+
+# only ignore the TODO file in the current directory, not subdir/TODO
+
+
+# ignore all files in the build/ directory
+.metadata/
+
+# ignore doc/notes.txt, but not doc/server/arch.txt
+
+
+# ignore all .pdf files in the doc/ directory
