@@ -1,15 +1,13 @@
 package rptPjt.com.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,44 +16,110 @@ import org.springframework.web.bind.annotation.RestController;
 import rptPjt.com.mapper.BoardMapper;
 import rptPjt.com.model.BoardVO;
 
-@Controller
+@RestController
+@RequestMapping("api/v1/board")
 public class RestBoardController {
+
 	@Autowired
 	private BoardMapper mapper;
-	
-	@RequestMapping("getBoards.do")
-	@ResponseBody
-	public List<BoardVO> getBoards(){ 		
-	List<BoardVO> boards = mapper.selectBoards();
-	return boards;
+
+	// 게시판 전체 조회
+	@RequestMapping(value = "", method = RequestMethod.GET)
+	public ResponseEntity<List<BoardVO>> getBoards() {
+
+		ResponseEntity<List<BoardVO>> entity = null;
+		try {
+			entity = new ResponseEntity<>(mapper.selectBoards(), HttpStatus.OK);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+		}
+		return entity;
 	}
-	
-	@RequestMapping("getBoard.do")
-	@ResponseBody
-	public BoardVO getBoard(int idx){ 		
-	BoardVO board = mapper.selectBoard(idx);
-	return board;
+
+	// 게시판 읽기
+	@RequestMapping(value = "{idx}", method = RequestMethod.GET)
+	public ResponseEntity<BoardVO> getBoard(@PathVariable("idx") int idx) {
+		ResponseEntity<BoardVO> entity = null;
+		try {
+			entity = new ResponseEntity<>(mapper.selectBoard(idx), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
 	}
-	
-	@RequestMapping("addBoard2.do")
-	@ResponseBody
-	public List<BoardVO> addBoard(){ 		
-	List<BoardVO> boards = mapper.selectBoards();
-	return boards;
+
+	// 게시판 등록
+	@RequestMapping(value = "", method = RequestMethod.POST)
+	public ResponseEntity<String> addBoard(@RequestBody BoardVO vo) {
+		ResponseEntity<String> entity = null;
+		try {
+
+			mapper.insertBoard(vo.getTitle(), vo.getContent(), vo.getWriter());
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		return entity;
 	}
+
+	// 게시판 수정
+	@RequestMapping(value="{idx}",method= {RequestMethod.PUT, RequestMethod.PATCH})
 	
-	@RequestMapping("setBoard3.do")
-	@ResponseBody
-	public List<BoardVO> setBoard(){ 		
-	List<BoardVO> boards = mapper.selectBoards();
-	return boards;
+	public ResponseEntity<String> setBoard(@PathVariable("idx") int idx, @RequestBody BoardVO vo) {
+		
+		ResponseEntity<String> entity = null;
+		try {
+			vo.setIdx(idx);
+			mapper.updateBoard(vo.getIdx(), vo.getTitle(), vo.getContent(), vo.getWriter());
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
 	}
+
+	// 게시판 삭제
+	@RequestMapping(value="{idx}", method=RequestMethod.DELETE)
 	
-	@RequestMapping("removeBoard4.do")
-	@ResponseBody
-	public List<BoardVO> removeBoard(){ 		
-	List<BoardVO> boards = mapper.selectBoards();
-	return boards;
+	public ResponseEntity<String> removeBoard(@PathVariable("idx") int idx) {
+		
+		ResponseEntity<String> entity = null;
+		try {
+			
+			mapper.deleteBoard(idx);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	
+		return entity;
 	}
-	
+
+	// 게시판 조회수증가
+	@RequestMapping(value = "updateViewCnt/{idx}", method = RequestMethod.GET)
+	public ResponseEntity<String> updateViewCnt(@PathVariable("idx") int idx) {
+
+		ResponseEntity<String> entity = null;
+		try {
+			mapper.updateViewCnt(idx);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
+	}
+
 }

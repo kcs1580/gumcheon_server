@@ -5,6 +5,10 @@
 	<select id="selectBoardCount" resultType="int">
 	select count(*) from board</select>
 	
+	
+	<select id="selectBoard" resultType="rptPjt.com.model.BoardVO">
+	SELECT idx, title, content, updatedate, viewcnt FROM board where idx=#{idx}</select>
+	
 	<insert id="insertBoard">
 	insert into board (title, content, writer, regdate, updatedate) values (#{title}, #{content}, #{writer}, now(),now())</insert>
 	
@@ -14,6 +18,6 @@
 	<delete id="deleteBoard"> delete from board where idx=#{idx}</delete>
 	
 	<select id="selectBoards" resultType="rptPjt.com.model.BoardVO">
-	SELECT idx, title, content, updatedate, viewcnt FROM board
+	SELECT idx, title, content, updatedate, writer, viewcnt FROM board
 	</select>
 </mapper>

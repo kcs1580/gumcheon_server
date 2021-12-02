@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="rptPjt.com.mapper.UserMapper">
+
+	<resultMap id="resultUserVO"
+		type="rptPjt.com.model.UserVO">
+		<result property="userId" column="USER_ID" />
+		<result property="userPassword" column="USER_PASSWORD" />
+		<result property="userName" column="USER_NAME" />
+		<result property="userAuthority" column="USER_AUTHORITY" />
+		<result property="userEnabled" column="USER_ENABLED" />
+	</resultMap>
+	<select id="getUserById" parameterType="String" resultMap="resultUserVO">
+		SELECT
+			  USER_ID
+			, USER_PASSWORD
+			, USER_NAME
+			, USER_AUTHORITY
+			, USER_ENABLED
+		FROM TB_USER
+		WHERE USER_ID = #{userId}
+	</select>
+
+</mapper>

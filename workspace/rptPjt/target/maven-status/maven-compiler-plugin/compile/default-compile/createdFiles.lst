@@ -1,6 +1,9 @@
 rptPjt\com\mapper\BoardMapper.class
 rptPjt\com\controller\BoardController.class
-rptPjt\com\controller\RestBoardController.class
 rptPjt\com\mapper\HomeMapper.class
+rptPjt\com\model\UserVO.class
+rptPjt\com\mapper\UserMapper.class
+rptPjt\com\controller\LoginController.class
+rptPjt\com\controller\RestBoardController.class
 rptPjt\com\controller\HomeController.class
 rptPjt\com\model\BoardVO.class
