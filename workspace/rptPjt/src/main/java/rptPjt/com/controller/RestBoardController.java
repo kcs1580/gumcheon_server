@@ -6,16 +6,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import rptPjt.com.mapper.BoardMapper;
 import rptPjt.com.model.BoardVO;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("api/v1/board")
 public class RestBoardController {
@@ -54,7 +56,7 @@ public class RestBoardController {
 	}
 
 	// 게시판 등록
-	@RequestMapping(value = "", method = RequestMethod.POST)
+	@PostMapping(value = "/write")
 	public ResponseEntity<String> addBoard(@RequestBody BoardVO vo) {
 		ResponseEntity<String> entity = null;
 		try {

@@ -7,7 +7,7 @@
 	
 	
 	<select id="selectBoard" resultType="rptPjt.com.model.BoardVO">
-	SELECT idx, title, content, regdate, viewcnt FROM board where idx=#{idx}</select>
+	SELECT idx, title, content, writer, regdate, updatedate, viewcnt FROM board where idx=#{idx}</select>
 	
 	<insert id="insertBoard">
 	insert into board (title, content, writer, regdate, updatedate) values (#{title}, #{content}, #{writer}, now(),now())</insert>
