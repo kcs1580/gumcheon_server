@@ -21,7 +21,7 @@
 	SELECT idx, title, content, regdate, updatedate, writer, viewcnt FROM board
 	</select>
 	
-	<update id="updateviewcnt">
+	<update id="updateViewCnt">
 		update board set viewcnt = viewcnt + 1 where idx = #{idx}
 	</update>
 	

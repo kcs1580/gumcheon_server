@@ -2,6 +2,7 @@ package rptPjt.com.model;
 
 import java.util.Date;
 
+
 public class BoardVO {
 int idx;
 String title;

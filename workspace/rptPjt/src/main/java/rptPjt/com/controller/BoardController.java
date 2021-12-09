@@ -14,16 +14,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import rptPjt.com.mapper.BoardMapper;
 import rptPjt.com.model.BoardVO;
+import rptPjt.com.service.serviceInterface.BoardService;
 
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("api/v1/board")
-public class RestBoardController {
+public class BoardController {
 
 	@Autowired
-	private BoardMapper mapper;
+	private BoardService boardService;
 
 	// 게시판 전체 조회
 	@RequestMapping(value = "", method = RequestMethod.GET)
@@ -31,7 +31,7 @@ public class RestBoardController {
 
 		ResponseEntity<List<BoardVO>> entity = null;
 		try {
-			entity = new ResponseEntity<>(mapper.selectBoards(), HttpStatus.OK);
+			entity = new ResponseEntity<>(boardService.selectBoards(), HttpStatus.OK);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -46,7 +46,7 @@ public class RestBoardController {
 	public ResponseEntity<BoardVO> getBoard(@PathVariable("idx") int idx) {
 		ResponseEntity<BoardVO> entity = null;
 		try {
-			entity = new ResponseEntity<>(mapper.selectBoard(idx), HttpStatus.OK);
+			entity = new ResponseEntity<>(boardService.selectBoard(idx), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -61,7 +61,7 @@ public class RestBoardController {
 		ResponseEntity<String> entity = null;
 		try {
 
-			mapper.insertBoard(vo.getTitle(), vo.getContent(), vo.getWriter());
+			boardService.insertBoard(vo.getTitle(), vo.getContent(), vo.getWriter());
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -78,7 +78,7 @@ public class RestBoardController {
 		ResponseEntity<String> entity = null;
 		try {
 			vo.setIdx(idx);
-			mapper.updateBoard(vo.getIdx(), vo.getTitle(), vo.getContent(), vo.getWriter());
+			boardService.updateBoard(vo.getIdx(), vo.getTitle(), vo.getContent(), vo.getWriter());
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 
 		} catch (Exception e) {
@@ -97,7 +97,7 @@ public class RestBoardController {
 		ResponseEntity<String> entity = null;
 		try {
 			
-			mapper.deleteBoard(idx);
+			boardService.deleteBoard(idx);
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
 			
@@ -114,7 +114,7 @@ public class RestBoardController {
 
 		ResponseEntity<String> entity = null;
 		try {
-			mapper.updateViewCnt(idx);
+			boardService.updateViewCnt(idx);
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
