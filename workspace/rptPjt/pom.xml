@@ -95,6 +95,11 @@
 		</dependency>
 		<dependency>
 			<groupId>egovframework.rte</groupId>
+			<artifactId>egovframework.rte.fdl.security</artifactId>
+			<version>${egovframework.rte.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>egovframework.rte</groupId>
 			<artifactId>egovframework.rte.psl.dataaccess</artifactId>
 			<version>${egovframework.rte.version}</version>
 		</dependency>
@@ -177,6 +182,22 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.9.7</version>
 		</dependency>
+		
+<!-- lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.22</version>
+			<scope>provided</scope>
+		</dependency>
+		
+<!-- jwt token -->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
+		</dependency>
+
 
 	</dependencies>
 

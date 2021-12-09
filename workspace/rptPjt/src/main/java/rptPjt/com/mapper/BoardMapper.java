@@ -9,6 +9,8 @@ import rptPjt.com.model.BoardVO;
 
 @Mapper
 public interface BoardMapper {
+	
+	
 	public int selectBoardCount();
 
 	public List<BoardVO> selectBoards();
