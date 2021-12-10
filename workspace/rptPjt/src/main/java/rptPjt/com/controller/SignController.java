@@ -6,7 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.encoding.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,15 +28,15 @@ public class SignController {
 	private CustomUserDetailService customUserDetailService;
 
 	@Autowired
-	private PasswordEncoder passwordEncoder;
-
-	@Autowired
 	private JwtTokenProvider jwtTokenProvider;
+
+	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 	// signin, login
 	@PostMapping(value = "/signin")
 	@ResponseBody
-	public SignVO signInUser(HttpServletRequest request, @RequestBody UserVO user) {
+	public  SignVO signInUser(HttpServletRequest request, @RequestBody UserVO user) {
+		
 		UserVO result = (UserVO) customUserDetailService.loadUserByUsername(user.getId());
 		SignVO signVO = new SignVO();
 		if (!passwordEncoder.matches(user.getPassword(), result.getPassword())) {
@@ -46,7 +46,7 @@ public class SignController {
 		}
 		List<String> roleList = Arrays.asList(result.getRoles().split(","));
 		signVO.setResult("success");
-		signVO.setToken(jwtTokenProvider.createToken(result.getId(), roleList));
+		signVO.setToken(jwtTokenProvider.createToken(result.getId(),result.getUsername(), roleList ));
 		return signVO;
 	}
 

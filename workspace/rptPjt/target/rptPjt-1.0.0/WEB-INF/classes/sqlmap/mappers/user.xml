@@ -3,16 +3,23 @@
 <mapper namespace="rptPjt.com.mapper.UserMapper">
 
 	
+	
+	
+
+	
+	<insert id="insertUser">
+	insert into user (id, password, username, roles) values (#{user.id}, #{user.password}, #{user.username}, #{user.roles})</insert>
+	
+	
+	
 	<delete id="deleteUser"> delete from user where id=#{id}</delete>
 	
-	<select id="selectUsers" resultType="rptPjt.com.model.UserVO">
-	SELECT id, username,  password FROM user
-	</select>
+
 	
 	<select id="findById" resultType="rptPjt.com.model.UserVO">
-	SELECT id, password, username FROM user where id=#{id}</select>
+	SELECT id, password, username, roles FROM user where id=#{id}</select>
 	
 		<select id="findByUsername" resultType="rptPjt.com.model.UserVO">
-	SELECT id, password, username FROM user where username=#{username}</select>
+	SELECT id, password, username, roles FROM user where username=#{username}</select>
 	
 </mapper>
