@@ -36,15 +36,19 @@ public class SignController {
 	@PostMapping(value = "/signin")
 	@ResponseBody
 	public  SignVO signInUser(HttpServletRequest request, @RequestBody UserVO user) {
+		System.out.println("user"+user.toString());
 		
 		UserVO result = (UserVO) customUserDetailService.loadUserByUsername(user.getId());
+		System.out.println("result"+result.toString());
+
 		SignVO signVO = new SignVO();
 		if (!passwordEncoder.matches(user.getPassword(), result.getPassword())) {
+			System.out.println("fail");
 			signVO.setResult("fail");
 			signVO.setMessage("ID or Password is invalid.");
 			return signVO;
 		}
-		List<String> roleList = Arrays.asList(result.getRoles().split(","));
+		List<String> roleList = Arrays.asList(result.getUserRoles().split(","));
 		signVO.setResult("success");
 		signVO.setToken(jwtTokenProvider.createToken(result.getId(),result.getUsername(), roleList ));
 		return signVO;
@@ -55,8 +59,8 @@ public class SignController {
 	@ResponseBody
 	public SignVO addUser(HttpServletRequest request, @RequestBody UserVO signupUser) {
 		UserVO user = signupUser;
-		user.setRoles("ROLE_USER");
-		user.setPassword(passwordEncoder.encode(signupUser.getPassword()));
+		user.setUserRoles("ROLE_USER");
+		user.setPw(passwordEncoder.encode(signupUser.getPassword()));
 		SignVO signVO = new SignVO();
 		int result = customUserDetailService.signInUser(user);
 		if (result == 1) {

@@ -11,9 +11,9 @@ public interface UserService {
 
 	UserVO selectUser(String id) throws Exception;
 
-	int insertUser(String id, String password, String name) throws Exception;
+	int insertUser(String id, String pw, String userNm) throws Exception;
 
-	int updateUser(String id, String password, String name) throws Exception;
+	int updateUser(String id, String pw, String userNm) throws Exception;
 
 	int deleteBoard(String id) throws Exception;
 }

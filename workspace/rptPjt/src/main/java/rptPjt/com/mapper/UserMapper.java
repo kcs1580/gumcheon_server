@@ -14,7 +14,7 @@ public interface UserMapper {
 
 	public UserDetails findById(@Param("id") String id);
 
-	public UserDetails findByUsername(@Param("username") String username);
+	public UserDetails findByUsername(@Param("userNm") String userNm);
 
 	public int insertUser(@Param("user") UserVO user);
 	

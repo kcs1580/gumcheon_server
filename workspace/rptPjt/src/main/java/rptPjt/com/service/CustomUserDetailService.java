@@ -17,11 +17,13 @@ public class CustomUserDetailService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
+		System.out.println("id: "+ id);
+		System.out.println(userMapper.findById(id));
 		return userMapper.findById(id);
 	}
 
-	public UserDetails findByUsername(String username) {
-		return userMapper.findByUsername(username);
+	public UserDetails findByUsername(String userNm) {
+		return userMapper.findByUsername(userNm);
 	}
 
 	public int signInUser(UserVO user) {
@@ -32,8 +34,8 @@ public class CustomUserDetailService implements UserDetailsService {
 		}
 	}
 
-	public int deleteUser(String username) {
-		return userMapper.deleteUser(username);
+	public int deleteUser(String userNm) {
+		return userMapper.deleteUser(userNm);
 	}
 
 }
