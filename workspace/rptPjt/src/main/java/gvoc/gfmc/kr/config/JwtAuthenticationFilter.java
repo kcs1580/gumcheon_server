@@ -1,4 +1,4 @@
-package rptPjt.com.config;
+package gvoc.gfmc.kr.config;
 
 import java.io.IOException;
 

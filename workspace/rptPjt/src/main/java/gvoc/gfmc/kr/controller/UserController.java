@@ -1,4 +1,4 @@
-package rptPjt.com.controller;
+package gvoc.gfmc.kr.controller;
 
 import java.util.List;
 
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import rptPjt.com.mapper.BoardMapper;
-import rptPjt.com.model.BoardVO;
+import gvoc.gfmc.kr.mapper.BoardMapper;
+import gvoc.gfmc.kr.model.BoardVO;
 
 @CrossOrigin(origins = "*")
 @RestController

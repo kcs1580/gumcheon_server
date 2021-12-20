@@ -1,11 +1,11 @@
-package rptPjt.com.mapper;
+package gvoc.gfmc.kr.mapper;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
 import egovframework.rte.psl.dataaccess.mapper.Mapper;
-import rptPjt.com.model.BoardVO;
+import gvoc.gfmc.kr.model.BoardVO;
 
 @Mapper
 public interface BoardMapper {

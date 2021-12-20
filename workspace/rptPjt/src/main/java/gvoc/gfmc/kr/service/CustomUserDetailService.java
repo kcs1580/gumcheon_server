@@ -1,4 +1,4 @@
-package rptPjt.com.service;
+package gvoc.gfmc.kr.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -6,8 +6,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import rptPjt.com.mapper.UserMapper;
-import rptPjt.com.model.UserVO;
+import gvoc.gfmc.kr.mapper.UserMapper;
+import gvoc.gfmc.kr.model.UserInfoVO;
 
 @Service
 public class CustomUserDetailService implements UserDetailsService {
@@ -17,8 +17,6 @@ public class CustomUserDetailService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-		System.out.println("id: "+ id);
-		System.out.println(userMapper.findById(id));
 		return userMapper.findById(id);
 	}
 
@@ -26,7 +24,7 @@ public class CustomUserDetailService implements UserDetailsService {
 		return userMapper.findByUsername(userNm);
 	}
 
-	public int signInUser(UserVO user) {
+	public int signInUser(UserInfoVO user) {
 		if (userMapper.findByUsername(user.getUsername()) == null) {
 			return userMapper.insertUser(user);
 		} else {

@@ -1,9 +1,8 @@
-package rptPjt.com.service.serviceInterface;
+package gvoc.gfmc.kr.service.serviceInterface;
 
 import java.util.List;
 
-
-import rptPjt.com.model.BoardVO;
+import gvoc.gfmc.kr.model.BoardVO;
 
 
 public interface BoardService {

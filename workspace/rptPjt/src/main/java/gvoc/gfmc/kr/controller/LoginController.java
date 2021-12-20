@@ -1,4 +1,4 @@
-package rptPjt.com.controller;
+package gvoc.gfmc.kr.controller;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,15 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import rptPjt.com.config.JwtTokenProvider;
-import rptPjt.com.model.SignVO;
-import rptPjt.com.model.UserVO;
-import rptPjt.com.service.CustomUserDetailService;
+import gvoc.gfmc.kr.config.JwtTokenProvider;
+import gvoc.gfmc.kr.model.SignVO;
+import gvoc.gfmc.kr.model.UserInfoVO;
+import gvoc.gfmc.kr.service.CustomUserDetailService;
 
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("api/v1/sign")
-public class SignController {
+public class LoginController {
 
 	@Autowired
 	private CustomUserDetailService customUserDetailService;
@@ -33,32 +33,45 @@ public class SignController {
 	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 	// signin, login
-	@PostMapping(value = "/signin")
+	@PostMapping(value = "/login")
 	@ResponseBody
-	public  SignVO signInUser(HttpServletRequest request, @RequestBody UserVO user) {
-		System.out.println("user"+user.toString());
-		
-		UserVO result = (UserVO) customUserDetailService.loadUserByUsername(user.getId());
-		System.out.println("result"+result.toString());
+	public SignVO signInUser(HttpServletRequest request, @RequestBody UserInfoVO user) {
 
+		UserInfoVO result = (UserInfoVO) customUserDetailService.loadUserByUsername(user.getId());
 		SignVO signVO = new SignVO();
-		if (!passwordEncoder.matches(user.getPassword(), result.getPassword())) {
-			System.out.println("fail");
+		System.out.println("apply: "+ result.getApplyYn());
+		
+		if (result.getApplyYn().equals("1") ) {
+			if (!passwordEncoder.matches(user.getPassword(), result.getPassword())) {
+				signVO.setRscode("2");
+				signVO.setResult("fail");
+				signVO.setMessage("비밀번호 초기화가 필요합니다.");
+				return signVO;
+			}
+			signVO.setRscode("3");
 			signVO.setResult("fail");
-			signVO.setMessage("ID or Password is invalid.");
+			signVO.setMessage("비밀번호 초기화 신청 상태 입니다. 시스템관리자에게 문의하세요");
+			return signVO;
+		} else {
+			if (!passwordEncoder.matches(user.getPassword(), result.getPassword())) {
+				signVO.setRscode("1");
+				signVO.setResult("fail");
+				signVO.setMessage("아이디 혹은 비밀번호가 잘못 입력되었습니다.");
+				return signVO;
+			}
+			List<String> roleList = Arrays.asList(result.getUserRoles().split(","));
+			signVO.setResult("success");
+			signVO.setToken(jwtTokenProvider.createToken(result.getId(), result.getUsername(), roleList));
 			return signVO;
 		}
-		List<String> roleList = Arrays.asList(result.getUserRoles().split(","));
-		signVO.setResult("success");
-		signVO.setToken(jwtTokenProvider.createToken(result.getId(),result.getUsername(), roleList ));
-		return signVO;
+
 	}
 
 	// signup,
 	@PostMapping(value = "/signup")
 	@ResponseBody
-	public SignVO addUser(HttpServletRequest request, @RequestBody UserVO signupUser) {
-		UserVO user = signupUser;
+	public SignVO addUser(HttpServletRequest request, @RequestBody UserInfoVO signupUser) {
+		UserInfoVO user = signupUser;
 		user.setUserRoles("ROLE_USER");
 		user.setPw(passwordEncoder.encode(signupUser.getPassword()));
 		SignVO signVO = new SignVO();

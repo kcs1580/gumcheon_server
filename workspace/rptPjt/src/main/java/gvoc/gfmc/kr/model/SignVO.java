@@ -1,10 +1,10 @@
-package rptPjt.com.model;
+package gvoc.gfmc.kr.model;
 
 
 
 public class SignVO {
 
-    private String result, message, token;
+    private String result, message, rscode, token;
 
 	public String getResult() {
 		return result;
@@ -30,9 +30,18 @@ public class SignVO {
 		this.token = token;
 	}
 
-	@Override
-	public String toString() {
-		return "SignVO [result=" + result + ", message=" + message + ", token=" + token + "]";
+	public String getRscode() {
+		return rscode;
 	}
 
+	public void setRscode(String rscode) {
+		this.rscode = rscode;
+	}
+
+	@Override
+	public String toString() {
+		return "SignVO [result=" + result + ", message=" + message + ", rscode=" + rscode + ", token=" + token + "]";
+	}
+
+	
 }

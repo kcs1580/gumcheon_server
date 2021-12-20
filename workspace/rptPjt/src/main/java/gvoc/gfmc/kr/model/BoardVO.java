@@ -1,4 +1,4 @@
-package rptPjt.com.model;
+package gvoc.gfmc.kr.model;
 
 import java.util.Date;
 

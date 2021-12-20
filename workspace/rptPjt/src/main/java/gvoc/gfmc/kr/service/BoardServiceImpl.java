@@ -1,13 +1,13 @@
-package rptPjt.com.service;
+package gvoc.gfmc.kr.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import rptPjt.com.mapper.BoardMapper;
-import rptPjt.com.model.BoardVO;
-import rptPjt.com.service.serviceInterface.BoardService;
+import gvoc.gfmc.kr.mapper.BoardMapper;
+import gvoc.gfmc.kr.model.BoardVO;
+import gvoc.gfmc.kr.service.serviceInterface.BoardService;
 
 @Service
 public class BoardServiceImpl implements BoardService {

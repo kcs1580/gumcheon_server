@@ -1,13 +1,9 @@
-package rptPjt.com.service;
+package gvoc.gfmc.kr.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import rptPjt.com.mapper.UserMapper;
-import rptPjt.com.model.UserVO;
-import rptPjt.com.service.serviceInterface.UserService;
+import gvoc.gfmc.kr.model.UserInfoVO;
+import gvoc.gfmc.kr.service.serviceInterface.UserService;
 
 public class UserServiceImpl implements UserService {
 
@@ -18,13 +14,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<UserVO> selectUsers() throws Exception {
+	public List<UserInfoVO> selectUsers() throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public UserVO selectUser(String id) throws Exception {
+	public UserInfoVO selectUser(String id) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
