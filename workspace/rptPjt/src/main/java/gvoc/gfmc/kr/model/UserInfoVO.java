@@ -19,13 +19,31 @@ public class UserInfoVO implements UserDetails {
 	private String id;
 	private String pw;
 	private String userNm;
-	private String userDgdp;
+	private String userOgdp;
 	private String userTeam;
 	private String userTelno;
 	private String applyYn;
+	private String inptUser;
 	private String inptDt;
+	private String updtUser;
 	private String updtDt;
 	private String userRoles;
+
+	public String getInptUser() {
+		return inptUser;
+	}
+
+	public void setInptUser(String inptUser) {
+		this.inptUser = inptUser;
+	}
+
+	public String getUpdtUser() {
+		return updtUser;
+	}
+
+	public void setUpdtUser(String updtUser) {
+		this.updtUser = updtUser;
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -34,11 +52,13 @@ public class UserInfoVO implements UserDetails {
 		return auth;
 	}
 
+
 	@Override
 	public String toString() {
-		return "UserVO [id=" + id + ", pw=" + pw + ", userNm=" + userNm + ", userDgdp=" + userDgdp + ", userTeam="
-				+ userTeam + ", userTelno=" + userTelno + ", applyYn=" + applyYn + ", inptDt=" + inptDt + ", updtDt="
-				+ updtDt + ", userRoles=" + userRoles + "]";
+		return "UserInfoVO [id=" + id + ", pw=" + pw + ", userNm=" + userNm + ", userOgdp=" + userOgdp + ", userTeam="
+				+ userTeam + ", userTelno=" + userTelno + ", applyYn=" + applyYn + ", inptUser=" + inptUser
+				+ ", inptDt=" + inptDt + ", updtUser=" + updtUser + ", updtDt=" + updtDt + ", userRoles=" + userRoles
+				+ "]";
 	}
 
 	public String getId() {
@@ -65,12 +85,12 @@ public class UserInfoVO implements UserDetails {
 		this.userNm = userNm;
 	}
 
-	public String getUserDgdp() {
-		return userDgdp;
+	public String getUserOgdp() {
+		return userOgdp;
 	}
 
-	public void setUserDgdp(String userDgdp) {
-		this.userDgdp = userDgdp;
+	public void setUserOgdp(String userOgdp) {
+		this.userOgdp = userOgdp;
 	}
 
 	public String getUserTeam() {
@@ -148,7 +168,6 @@ public class UserInfoVO implements UserDetails {
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub
-		System.out.println("pw: " + pw);
 		return pw;
 	}
 

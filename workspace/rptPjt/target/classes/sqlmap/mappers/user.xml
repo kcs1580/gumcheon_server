@@ -5,7 +5,8 @@
 
 
 	<insert id="insertUser">
-		insert into user_info (id, pw, user_nm, user_roles) values (#{user.id},
+		insert into user_info (id, pw, user_nm, user_roles)
+		values (#{user.id},
 		#{user.pw}, #{user.userNm}, #{user.userRoles})
 	</insert>
 
@@ -16,11 +17,23 @@
 
 
 	<select id="findById" resultType="gvoc.gfmc.kr.model.UserInfoVO">
-		select id, pw, user_nm,apply_yn, user_roles from user_info where id=#{id}
+		select * from user_info where
+		id=#{id}
 	</select>
 
-	<select id="findByUsername" resultType="gvoc.gfmc.kr.model.UserInfoVO">
-		select id, pw, user_nm, apply_yn, user_roles from user_info where user_nm=#{userNm}
+	<select id="findByUsername"
+		resultType="gvoc.gfmc.kr.model.UserInfoVO">
+		select * from user_info where user_nm=#{userNm}
 	</select>
+
+	<update id="pwInitApply">
+		update user_info set apply_yn = "Y" where
+		id=#{user.id}
+	</update>
+	
+	<update id="chPw">
+		update user_info set pw = #{user.pw}, apply_yn = "N" where
+		id=#{user.id}
+	</update>
 
 </mapper>
